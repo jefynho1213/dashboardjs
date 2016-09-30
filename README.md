@@ -1,6 +1,7 @@
 # DashboardJS
 
 ><chart json="example.json" title="Title Chart" namecounter="NameCounter"
+
 >json syntax - [1474030800000,14623]
 
 #HighStock DateFormat
