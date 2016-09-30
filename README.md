@@ -2,7 +2,7 @@
 
 ><chart json="example.json" title="Title Chart" namecounter="NameCounter"
 
->json syntax - [1474030800000,14623]
+>json syntax - [1474030800000,14623] = "[date, value]"
 
 #HighStock DateFormat
 >dateFormat (String format, [Number time], [Boolean capitalize])
