@@ -8,9 +8,12 @@ angular.module("simpleChart").directive("chart", function () {
 			namecounter : '@'
 		}, 
 		controller : function ($scope, $element, $http) {
+			$scope.modal = $scope.title + "modal";
+			console.log($scope.modal);
 			$http.get($scope.json).success(function(data){
 				$scope.data = data;
-			var chart = function (json, name, namecounter) {
+				console.log(data);
+			var chart = function (json, name, namecounter, modal) {
 		  	
 		        // Create the chart
 		        $('#' + name).highcharts('StockChart', {
@@ -32,8 +35,31 @@ angular.module("simpleChart").directive("chart", function () {
 			            }]
 			        });
 
+		         	$('#' + modal).highcharts('StockChart', {
+
+			           rangeSelector: {
+			                selected: 1
+			            },
+
+			            title: {
+			                text: name
+			            },
+
+			            series: [{
+			                name: namecounter,
+			                data: $scope.data,
+			                tooltip: {
+			                    valueDecimals: 2
+			                }
+			            }]
+			        });
 				};
-				chart($scope.data, $scope.title, $scope.namecounter);
+		        var modal = function (json, name, namecounter, modal)
+		         { 
+		    };
+
+				chart($scope.data, $scope.title, $scope.namecounter, $scope.modal);
+				modal($scope.data, $scope.title, $scope.namecounter, $scope.modal);
 			});
 			
 		}
