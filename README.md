@@ -1,4 +1,7 @@
 # DashboardJS
+**component library in AngularJS, also using HighCharts.**
+
+> **Charts** 
 
 ><chart json="example.json" title="Title Chart" namecounter="NameCounter"
 
