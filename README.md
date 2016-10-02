@@ -1,5 +1,5 @@
 # DashboardJS
-**component library in AngularJS, also using HighCharts.**
+**Component library in AngularJS, using also HighCharts.**
 
 > **Charts** 
 
