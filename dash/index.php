@@ -16,6 +16,7 @@
 	<script src="/dash/bootstrap/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="/dash/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/dash/bootstrap/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="style/main.css">
 	<title>DsJS</title>
 </head>
 <body ng-app="dash">
