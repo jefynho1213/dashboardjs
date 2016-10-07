@@ -1,0 +1,31 @@
+<style type="text/css">
+  .loadingPage {
+    margin-left: 25%;
+    width: 50%;
+  }
+  .modalLoading {
+    display: block; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+</style>
+
+<div class="modalLoading" ng-show="loadingPage">
+<div class=" text-center" ng-show="loadingPage">
+  <h1><small>LOADING...</small></h1>
+</div>
+  <div class="progress loadingPage" >
+    <div class="progress-bar progress-bar-striped active" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+      <span class="sr-only jumbotron text-center">95% Complete</span>
+    </div>
+</div>
+</div>
