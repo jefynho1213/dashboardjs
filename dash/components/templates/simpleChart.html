@@ -1,12 +1,12 @@
 
- <div id="{{title}}" style="height: 100%; width: 100%"></div>
+ <div id="{{idiv}}" style="height: 100%; width: 100%"></div>
   <!-- Trigger the modal with a button -->
 
    <div class="col-sm-12" style="margin-bottom: 5%">
-  <button type="button" class="btn btn-default btn-sm btn-block" data-toggle="modal" data-target="#myModal{{title}}" >Open Chart {{title}}</button>
+  <button type="button" class="btn btn-default btn-sm btn-block" data-toggle="modal" data-target="#myModal{{modal}}" >Open Chart {{title}}</button>
   	</div>
   <!-- Modal -->
-  <div class="modal fade" id="myModal{{title}}" role="dialog">
+  <div class="modal" id="myModal{{modal}}" role="dialog">
     <div class="modal-dialog modal-lg">
       <!-- Modal content-->
       <div class="modal-content">
@@ -14,11 +14,14 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body" >
-               <div id="{{modal}}"  style="height: 300px; max-width: 100%; width: 65%"></div>    	  
+               <div id="{{modal}}"  style="height: 70%; max-width: 100%; width: 65%"></div>    	  
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
       
     </div>
-  </div>
+  </div></div>
+  
+
+

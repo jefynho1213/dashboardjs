@@ -1,5 +1,5 @@
-angular.module("simpleChart", []);
-angular.module("simpleChart").directive("chart", function () {
+angular.module("fca", []);
+angular.module("fca").directive("chart", function () {
 	return  {
 		templateUrl : "/dash/components/templates/simpleChart.html",
 		scope : {
@@ -9,10 +9,8 @@ angular.module("simpleChart").directive("chart", function () {
 		}, 
 		controller : function ($scope, $element, $http) {
 			$scope.modal = $scope.title + "modal";
-			console.log($scope.modal);
 			$http.get($scope.json).success(function(data){
 				$scope.data = data;
-				console.log(data);
 			var chart = function (json, name, namecounter, modal) {
 		  	
 		        // Create the chart
@@ -54,14 +52,15 @@ angular.module("simpleChart").directive("chart", function () {
 			            }]
 			        });
 				};
-		        var modal = function (json, name, namecounter, modal)
-		         { 
-		    };
+		       
 
 				chart($scope.data, $scope.title, $scope.namecounter, $scope.modal);
-				modal($scope.data, $scope.title, $scope.namecounter, $scope.modal);
+
 			});
 			
 		}
 	}
+}).directive("mchart", function () {
+
+
 });

@@ -1,1 +1,1 @@
-var dash = angular.module("dash", ["navbar", "simpleChart"]);
+var dash = angular.module("dash", ["navbar", "fca"]);
