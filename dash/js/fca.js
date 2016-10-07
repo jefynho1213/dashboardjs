@@ -5,16 +5,17 @@ angular.module("fca").directive("chart", function () {
 		scope : {
 			json : '@',
 			title : '@',
-			namecounter : '@'
+			namecounter : '@',
+			idiv : '@'
 		}, 
 		controller : function ($scope, $element, $http) {
-			$scope.modal = $scope.title + "modal";
+			$scope.modal = $scope.idiv + "modal";
 			$http.get($scope.json).success(function(data){
 				$scope.data = data;
-			var chart = function (json, name, namecounter, modal) {
+			var chart = function (json, name, idiv, namecounter, modal) {
 		  	
 		        // Create the chart
-		        $('#' + name).highcharts('StockChart', {
+		        $('#' + idiv).highcharts('StockChart', {
 
 			           rangeSelector: {
 			                selected: 1
@@ -54,7 +55,7 @@ angular.module("fca").directive("chart", function () {
 				};
 		       
 
-				chart($scope.data, $scope.title, $scope.namecounter, $scope.modal);
+				chart($scope.data, $scope.title, $scope.idiv,  $scope.namecounter, $scope.modal);
 
 			});
 			
@@ -66,18 +67,21 @@ angular.module("fca").directive("chart", function () {
 		scope : {
 			names :'=',
 			json : '@',
-			title : '@'
+			idiv : '@',
+			title : '@',
+			type : '@'
 
 		},
 		controller : function($http, $scope, $element){
-			
-				$scope.modal = $scope.title + "modal";
-			function chart(json, names, title, modal) 
+					
+				$scope.modal = $scope.idiv + "modal";
+			function chart(json, names, idiv, title, modal, type) 
 			{
 
 			    var seriesOptions = [],
 			        seriesCounter = 0,
 			        names = names;
+			        console.log(type);
 
 			    /**
 			     * Create the chart when all data is loaded
@@ -85,11 +89,12 @@ angular.module("fca").directive("chart", function () {
 			     */
 	    		function createChart() 
 	    		{
+				console.log(idiv);
 
 
-			        $('#' + title).highcharts('StockChart', 
+			        $('#' + idiv).highcharts('StockChart', 
 			        {
-						
+
 						title : 
 						{
 			                text : title
@@ -100,15 +105,16 @@ angular.module("fca").directive("chart", function () {
 			                selected: 4
 			            },
 
-			            yAxis: 
-			            {
-			                plotLines: 
-			                [{
-			                    color: 'silver'
-			                }]
-			            },
-						
-
+						yAxis: [{
+				            title: {
+				                text: ''
+				            }
+				        }, {
+				            title: {
+				                text: ''
+				            },
+				            opposite: true
+				        }],
 
 			            plotOptions: 
 			            {
@@ -119,6 +125,15 @@ angular.module("fca").directive("chart", function () {
 			            {
 			                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>',
 			                valueDecimals: 2
+			            },
+			            navigator: {
+               				 enabled: false
+            			},
+            			scrollbar: {
+                			enabled: false
+            			},
+            			rangeSelector: {
+			                enabled: false
 			            },
 
 			            series: seriesOptions
@@ -136,13 +151,16 @@ angular.module("fca").directive("chart", function () {
 			                selected: 4
 			            },
 
-			            yAxis: 
-			            {
-			                plotLines: 
-			                [{
-			                    color: 'silver'
-			                }]
-			            },
+			           
+						yAxis: [{
+				            title: {
+
+				            }
+				        }, {
+				            title: {
+
+				            }
+				        }],
 						
 
 
@@ -161,31 +179,65 @@ angular.module("fca").directive("chart", function () {
 			        });
 			    }
 
-			    $.each(names, function (i, name, json) 
+			    $.each(names, function (i, name, type, json) 
 			    {
 
-
-			        $http.get($scope.json+name).success(function (data) 
+			        if(name.name)
 			        {
+				        	console.log("existe");
+				        $http.get($scope.json+name.name).success(function (data) 
+				        {	
 
-			            seriesOptions[i] = 
-			            {
-			                name: name,
-			                data: data
-			            };
 
-			            // As we're loading the data asynchronously, we don't know what order it will arrive. So
-			            // we keep a counter and create the chart when all the data is loaded.
-			            seriesCounter += 1;
 
-			            if (seriesCounter === names.length) 
-			            {
-			                createChart();
-			            }
-			        });
+				            seriesOptions[i] = 
+				            {
+				                name: name.name,
+				                data: data,
+				                type: name.type,
+				                yAxis: name.axi,
+				                dataGrouping: {
+				                    units: [[
+				                        'hour', // unit name
+				                        [1] // allowed multiples
+				                    ]]
+				                }
+				            };
+
+				            // As we're loading the data asynchronously, we don't know what order it will arrive. So
+				            // we keep a counter and create the chart when all the data is loaded.
+				            seriesCounter += 1;
+
+				            if (seriesCounter === names.length) 
+				            {
+				                createChart();
+				            }
+				        });
+				    } else {
+				    	console
+				  		 $http.get($scope.json+name).success(function (data) 
+				        {	
+
+				            seriesOptions[i] = 
+				            {
+				                name: name,
+				                data: data,
+				                type: $scope.type
+				            };
+
+				            // As we're loading the data asynchronously, we don't know what order it will arrive. So
+				            // we keep a counter and create the chart when all the data is loaded.
+				            seriesCounter += 1;
+
+				            if (seriesCounter === names.length) 
+				            {
+				                createChart();
+				            }
+				        });
+				    }
 			    });
 			};
-			chart($scope.json, $scope.names, $scope.title, $scope.modal);
+			chart($scope.json, $scope.names, $scope.idiv, $scope.title, $scope.modal, $scope.type);
 		}
 	}
 
@@ -196,23 +248,54 @@ angular.module("fca").directive("chart", function () {
 .factory('loading', function($q, $rootScope, $timeout){
 	return {
 		request: function (config) {
+			
 			$rootScope.loadingPage = true;
 			return config;
 		},
 		requestError: function (rejection) {
+
 			$rootScope.loadingPage = false;
 			return $q.reject(rejection);
 		},
 		response : function(response){
-			$timeout(function (){
-				$rootScope.loadingPage = false;
-			}, 2000);
+			
+			$rootScope.loadingPage = false;
 			return response;
 		},
 		responseError: function(rejection){
+			
 			$rootScope.loadingPage = false;
 			return $q.rejection(rejection);
 		}
 		
 	};
+})
+.directive("loading", function () {
+	return {
+		templateUrl : "/dash/components/templates/loading.html"
+	}
+})
+.directive("alertd", function() {
+	return {
+		templateUrl : "/dash/components/templates/alertdanger.html",
+		transclude : true
+	}
+})
+.directive("alertw", function() {
+	return {
+		templateUrl : "/dash/components/templates/alertwarning.html",
+		transclude : true
+	}
+})
+.directive("alerti", function() {
+	return {
+		templateUrl : "/dash/components/templates/alertimpotant.html",
+		transclude : true
+	}
+})
+.directive("alerts", function() {
+		return {
+		templateUrl : "/dash/components/templates/alertsuccess.html",
+		transclude : true
+	}
 })
