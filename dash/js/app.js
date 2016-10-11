@@ -32,10 +32,6 @@ app.controller('dash', function($scope, $http, $mdDialog) {
       $mdDialog.alert()
         .parent(angular.element(document.querySelector('#popupContainer')))
         .clickOutsideToClose(true)
-        .title('This is an alert title')
-        .textContent('You can specify some description text in here.')
-        .ariaLabel('Alert Dialog Demo')
-        .ok('Got it!')
         .targetEvent(ev)
     );
   };
@@ -57,15 +53,6 @@ app.controller('dash', function($scope, $http, $mdDialog) {
   };
 
 
-  $scope.showPrerenderedDialog = function(ev) {
-    $mdDialog.show({
-      controller: DialogController,
-      contentElement: '#myDialog',
-      parent: angular.element(document.body),
-      targetEvent: ev,
-      clickOutsideToClose: true
-    });
-  };
 
   function DialogController($scope, $mdDialog) {
     $scope.hide = function() {
