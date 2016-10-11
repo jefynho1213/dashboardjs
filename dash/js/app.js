@@ -11,7 +11,7 @@ app.controller('dash', function($scope, $http, $mdDialog) {
         var postData = 'myData='+JSON.stringify(formData);
         $http({
                 method : 'POST',
-                url : 'http://10.58.0.249/dashboard/actions/email_equipe.php',
+                url : 'sendEmail.php',
                 data: postData,
                 headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
 
